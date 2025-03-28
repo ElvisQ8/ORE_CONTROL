@@ -13,47 +13,36 @@ planta = st.number_input("PLANTA ($/ton)", min_value=0.0, format="%.2f")
 ga = st.number_input("G&A ($/ton)", min_value=0.0, format="%.2f")
 
 # ======================
-# PARTE 2: COSTOS MINA
+# PARTE 2: COSTOS MINA (Actualizado)
 # ======================
 st.subheader("2. Costos Variables Mina")
 costos_mina = []
-col1, col2, col3 = st.columns([3, 2, 2])
-
-with col1:
-    st.markdown("**Actividad**")
-    actividades = [
-        "CABLE BOLTING ($)", "AVANCES PREPARACIONES ($)", "AVANCES EN RELLENO ($)",
-        "REFUGIOS OPEX ($)", "SOSTENIMIENTO CON MALLA ($)", "PERNOS HELICOIDALES ($)",
-        "PERNOS EXPANSIVOS ($)", "REHABILITACIONES ($)", "CHIMENEA SLOT ($)",
-        "SHOTCRETE ($)", "VOLADURA TAJOS ($)", "TRANSPORTE ($)",
-        "ACEROS ($)", "Cemento y Otros ($)", "Servicios Mina ($)", "Transporte CC ($)"
-    ]
-    for act in actividades:
-        st.text(act)
+actividades = [
+    "CABLE BOLTING ($)", "AVANCES PREPARACIONES ($)", "AVANCES EN RELLENO ($)",
+    "REFUGIOS OPEX ($)", "SOSTENIMIENTO CON MALLA ($)", "PERNOS HELICOIDALES ($)",
+    "PERNOS EXPANSIVOS ($)", "REHABILITACIONES ($)", "CHIMENEA SLOT ($)",
+    "SHOTCRETE ($)", "VOLADURA TAJOS ($)", "TRANSPORTE ($)",
+    "ACEROS ($)", "Cemento y Otros ($)", "Servicios Mina ($)", "Transporte CC ($)"
+]
 
 coef = [14.73, 965, 789, 389.22, 11.35, 39.96, 40.92, 339, 1284, 240.15,
-        0.36, 2.2, 1, 1, 1, 0]
+        0.36, 2.2, 1, 1, 1, 0]  # Transporte CC se calcula con fórmula especial
 
 metrajes = []
 costos = []
 
-with col2:
-    st.markdown("**Metraje (input)**")
-    for i in range(len(actividades)):
-        val = st.number_input(f"", key=f"metraje_{i}", min_value=0.0)
-        metrajes.append(val)
+for i in range(len(actividades)):
+    st.markdown(f"**{actividades[i]}**")
+    input_val = st.number_input(f"Metraje - {actividades[i]}", key=f"metraje_{i}", min_value=0.0)
+    metrajes.append(input_val)
 
-with col3:
-    st.markdown("**Costo ($)**")
-    for i in range(len(actividades)):
-        espacio = st.empty()
-        if actividades[i] == "Transporte CC ($)":
-            costos.append(0)
-            espacio.write("Calculado abajo")
-        else:
-            resultado = metrajes[i] * coef[i]
-            costos.append(resultado)
-            espacio.write(f"{resultado:,.2f}")
+    if actividades[i] == "Transporte CC ($)":
+        st.info("Se calcula más adelante con base en concentrados")
+        costos.append(0)
+    else:
+        resultado = input_val * coef[i]
+        costos.append(resultado)
+        st.write(f"Costo: ${resultado:,.2f}")
 
 # ======================
 # PARTE 3: TAJO 1
