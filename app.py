@@ -32,7 +32,7 @@ else:
     }
 
     editable_df = st.data_editor(pd.DataFrame(data), num_rows="dynamic", use_container_width=True)
-    st.markdown("⚙️ Aquí podrás modificar los datos para hacer simulaciones y control del Tajo.")
+    st.markdown("⚙️ simulaciones!!!!.")
 
 # ======================
 # PARTE 2: COSTOS MINA
