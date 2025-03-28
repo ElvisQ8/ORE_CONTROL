@@ -148,3 +148,78 @@ with col4:
     st.metric("Ley CC Ag en Cu (oz/ton)", f"{ley_cc_ag_cu:.4f}")
 
 st.metric("TMS Cobre", f"{((tonelaje * ley_cu) / 100) * ((rec_cu / 100) / (ley_cc_cu / 100)) if ley_cc_cu > 0 else 0:,.2f}")
+# ======================
+# PARTE 7: TOTALES Y FINOS
+# ======================
+st.subheader("7. Totales y Finos")
+finos_zn = tms_zn * (ley_cc_zn / 100)
+finos_pb = ((tonelaje * ley_pb) / 100) * ((rec_pb / 100))  # Antes de dividir por ley_cc_pb
+finos_cu = ((tonelaje * ley_cu) / 100) * ((rec_cu / 100))
+finos_ag = (
+    tonelaje * ley_ag * (rec_zn_dup / 100) +
+    tonelaje * ley_ag * (rec_ag_pb / 100) +
+    tonelaje * ley_ag * (rec_ag_cu / 100)
+)
+zn_eq = finos_zn + finos_pb * (2137 / 2649) + finos_cu * (8483 / 2649) + finos_ag * (23 / 2649)
+sr = ley_zn + 1 + 29.93278969711
+total_concentrado = tms_zn + ((tonelaje * ley_pb) / 100) * ((rec_pb / 100) / (ley_cc_pb / 100)) + ((tonelaje * ley_cu) / 100) * ((rec_cu / 100) / (ley_cc_cu / 100))
+
+col1, col2, col3, col4 = st.columns(4)
+with col1:
+    st.metric("Total Concentrado (TMS)", f"{total_concentrado:,.2f}")
+    st.metric("Finos de Zinc (TMS)", f"{finos_zn:,.2f}")
+with col2:
+    st.metric("Finos de Plomo (TMS)", f"{finos_pb:,.2f}")
+    st.metric("Finos de Cobre (TMS)", f"{finos_cu:,.2f}")
+with col3:
+    st.metric("Finos de Plata (Oz)", f"{finos_ag:,.2f}")
+    st.metric("Zn Equivalente (TMS)", f"{zn_eq:,.2f}")
+with col4:
+    st.metric("NSR ($/ton)", f"{sr:,.2f}")
+# ==============================
+# PARTE 8: COSTO Y PRODUCCIÓN
+# ==============================
+st.subheader("8. Costo y Producción General")
+costo_var_mina_tm = (sum(costos[:-1]) + costos[-1]) / tonelaje if tonelaje > 0 else 0
+costo_var_planta_ga = (planta + ga) * tonelaje
+produccion_tmd = tonelaje
+precio_zn_eq = 2546
+dias = 1
+
+col1, col2, col3, col4 = st.columns(4)
+with col1:
+    st.metric("Costo Mina (US$/TM)", f"{costo_var_mina_tm:,.2f}")
+    st.metric("Producción (TMD)", f"{produccion_tmd:,.2f}")
+with col2:
+    st.metric("Costo Planta - G&A (US$)", f"{costo_var_planta_ga:,.2f}")
+    st.metric("Precio (T/Zn eq)", f"{precio_zn_eq:,.2f}")
+with col3:
+    st.metric("Días Laborados", f"{dias}")
+# =============================
+# PARTE 9: PROGRAMA - 1ERA SEMANA
+# =============================
+st.subheader("9. Programa - 1era Semana")
+st.metric("NSR ($/ton)", f"{sr:,.2f}")
+st.metric("Zn Equivalente (TMS)", f"{zn_eq:,.2f}")
+# =============================
+# PARTE 10: MC1 – Margen de Contribución
+# =============================
+st.subheader("10. MC1 – Margen de Contribución")
+venta = precio_zn_eq * zn_eq
+costo_var_mina_total = costo_var_mina_tm * tonelaje
+mc = venta - costo_var_mina_total
+
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.metric("VENTA (US$)", f"{venta:,.2f}")
+with col2:
+    st.metric("CV Mina (US$)", f"{costo_var_mina_total:,.2f}")
+with col3:
+    st.metric("MC (Miles de US$)", f"{mc / 1000:,.2f}")
+# =============================
+# PARTE 11: UTILIDAD FINAL
+# =============================
+st.subheader("11. Utilidad Final")
+utilidad = mc - costo_var_planta_ga
+st.metric("UTILIDAD (US$)", f"{utilidad:,.2f}")
+
