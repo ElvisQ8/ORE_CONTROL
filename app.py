@@ -1,19 +1,38 @@
 import streamlit as st
 import math
+import pandas as pd
 
 st.set_page_config(page_title="Proyecto Minero", layout="wide")
-st.title("🧱 Proyecto de Cálculo Minero")
-st.markdown("---")
 
-# =======================
-# PARTE 1: COSTOS SOPORTE
-# =======================
-st.subheader("1. Costos Variables Áreas Soporte")
-col1, col2 = st.columns(2)
-with col1:
-    planta = st.number_input("PLANTA ($/ton)", min_value=0.0, format="%.2f")
-with col2:
-    ga = st.number_input("G&A ($/ton)", min_value=0.0, format="%.2f")
+menu = st.sidebar.selectbox("Selecciona una vista", ["Costo de Producción", "Seguimiento de Tajo"])
+
+if menu == "Costo de Producción":
+    st.title("🧱 Proyecto de Cálculo Minero")
+    st.markdown("---")
+
+    # Aquí va TODO el código actual del proyecto desde PARTE 1 hasta PARTE 11
+    # Ya está en el canvas, así que no se repite aquí por simplicidad.
+
+else:
+    st.title("📊 Seguimiento de Tajo")
+    st.markdown("---")
+
+    st.subheader("Editar valores obtenidos del cálculo previo")
+
+    data = {
+        "Finos de Zinc (TMS)": [0],
+        "Finos de Plomo (TMS)": [0],
+        "Finos de Cobre (TMS)": [0],
+        "Finos de Plata (Oz)": [0],
+        "Zn Equivalente (TMS)": [0],
+        "Ley Cabeza Zn (%)": [0],
+        "Ley Cabeza Pb (%)": [0],
+        "Ley Cabeza Cu (%)": [0],
+        "Ley Cabeza Ag (oz/ton)": [0]
+    }
+
+    editable_df = st.data_editor(pd.DataFrame(data), num_rows="dynamic", use_container_width=True)
+    st.markdown("⚙️ Aquí podrás modificar los datos para hacer simulaciones y control del Tajo.")
 
 # ======================
 # PARTE 2: COSTOS MINA
