@@ -1,5 +1,4 @@
-with open("/mnt/data/app.py", "w", encoding="utf-8") as f:
-    f.write("""import streamlit as st
+import streamlit as st
 import math
 
 st.set_page_config(page_title="Proyecto Minero", layout="wide")
@@ -137,7 +136,7 @@ finos_ag = (
     tonelaje * ley_ag * (rec_ag_cu / 100)
 )
 zn_eq = finos_zn + finos_pb * (2137 / 2649) + finos_cu * (8483 / 2649) + finos_ag * (23 / 2649)
-nsr = ley_zn + 1 + 29.93278969711
+sr = ley_zn + 1 + 29.93278969711
 
 # =============================
 # PARTE 8: COSTO Y PRODUCCIÓN
@@ -153,7 +152,7 @@ dias = 1
 # PARTE 9: PROGRAMA - 1ERA SEMANA
 # =============================
 st.subheader("9. Programa - 1era Semana")
-st.write(f"**NSR ($/ton):** {nsr:,.2f}")
+st.write(f"**NSR ($/ton):** {sr:,.2f}")
 st.write(f"**Zn Equivalente (TMS):** {zn_eq:,.2f}")
 
 # =============================
@@ -173,4 +172,3 @@ st.write(f"**MC (Miles de US$):** {mc / 1000:,.2f}")
 st.subheader("11. Utilidad Final")
 utilidad = mc - costo_var_planta_ga
 st.write(f"**UTILIDAD (US$):** {utilidad:,.2f}")
-""")
