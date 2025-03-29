@@ -141,17 +141,21 @@ if menu == "Costo de Producción":
         st.metric("NSR ($/ton)", f"{sr:.2f}")
 
     # PARTE 8: COSTO Y PRODUCCIÓN
+    st.subheader("8. Costo y Producción")
+    
+    # Primero calcula los valores
+    costo_var_mina_tm = sum(costos) / tonelaje if tonelaje > 0 else 0
+    costo_var_planta_ga = (planta + ga) * tonelaje
+    precio_zn_eq = 2546
+    
+    # Luego muestra los resultados
     col1, col2, col3 = st.columns(3)
     with col1:
         st.metric("Costo Variable Mina (US$/TM)", f"{costo_var_mina_tm:.2f}")
     with col2:
         st.metric("Costo Variable Planta - G&A (US$)", f"{costo_var_planta_ga:.2f}")
     with col3:
-        st.metric("Precio $ (T/Zn eq)", f"{precio_zn_eq:.2f}")
-    st.subheader("8. Costo y Producción")
-    costo_var_mina_tm = sum(costos) / tonelaje if tonelaje > 0 else 0
-    costo_var_planta_ga = (planta + ga) * tonelaje
-    precio_zn_eq = 2546
+    st.metric("Precio $ (T/Zn eq)", f"{precio_zn_eq:.2f}")
 
     # PARTE 9: PROGRAMA - 1ERA SEMANA
     st.subheader("9. Programa - 1era Semana")
