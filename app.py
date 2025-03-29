@@ -2,7 +2,7 @@ import streamlit as st
 import math
 import pandas as pd
 
-st.set_page_config(page_title="Proyecto Minero", layout="wide")
+st.set_page_config(page_title="Ore Control", layout="wide")
 
 # Inicialización de variables globales
 if "resultados" not in st.session_state:
@@ -21,7 +21,7 @@ if "resultados" not in st.session_state:
 menu = st.sidebar.selectbox("Selecciona una vista", ["Costo de Producción", "Seguimiento de Tajo"])
 
 if menu == "Costo de Producción":
-    st.title("🧱 Proyecto de Cálculo Minero")
+    st.title("🧱 Calculo de valor por tajo")
     st.markdown("---")
 
     # PARTE 1: SOPORTE
