@@ -141,7 +141,7 @@ if menu == "Costo de Producción":
         st.metric("NSR ($/ton)", f"{sr:.2f}")
 
     # PARTE 8: COSTO Y PRODUCCIÓN
-   col1, col2, col3 = st.columns(3)
+    col1, col2, col3 = st.columns(3)
     with col1:
         st.metric("Costo Variable Mina (US$/TM)", f"{costo_var_mina_tm:.2f}")
     with col2:
