@@ -155,7 +155,7 @@ if menu == "Costo de Producción":
     with col2:
         st.metric("Costo Variable Planta - G&A (US$)", f"{costo_var_planta_ga:.2f}")
     with col3:
-    st.metric("Precio $ (T/Zn eq)", f"{precio_zn_eq:.2f}")
+        st.metric("Precio $ (T/Zn eq)", f"{precio_zn_eq:.2f}")
 
     # PARTE 9: PROGRAMA - 1ERA SEMANA
     st.subheader("9. Programa - 1era Semana")
