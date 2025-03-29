@@ -79,6 +79,14 @@ if menu == "Costo de Producción":
     rec_zn += 1
     rec_zn_dup = 1.8645 * ley_ag + 3.2175
     tms_zn = ((tonelaje * ley_zn) / 100) * ((rec_zn / 100) / (ley_cc_zn / 100)) if ley_cc_zn > 0 else 0
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Ley CC Zn (%)", f"{ley_cc_zn:.2f}")
+        st.metric("Recuperación Zn (%)", f"{rec_zn:.2f}")
+    with col2:
+        st.metric("Recuperación Zn duplicado (%)", f"{rec_zn_dup:.2f}")
+    with col3:
+        st.metric("TMS Zinc", f"{tms_zn:.2f}")
 
     # PARTE 5: CONCENTRADO PLOMO
     st.subheader("5. Concentrado Plomo")
@@ -87,7 +95,15 @@ if menu == "Costo de Producción":
     rec_pb += 1
     rec_ag_pb = 24.1147 * ley_ag + 10.0657
     tms_pb = ((tonelaje * ley_pb) / 100) * ((rec_pb / 100) / (ley_cc_pb / 100)) if ley_cc_pb > 0 else 0
-
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Ley CC Pb (%)", f"{ley_cc_pb:.2f}")
+        st.metric("Recuperación Pb (%)", f"{rec_pb:.2f}")
+    with col2:
+        st.metric("Recuperación Ag en Pb (%)", f"{rec_ag_pb:.2f}")
+    with col3:
+        st.metric("TMS Plomo", f"{tms_pb:.2f}")
+   
     # PARTE 6: CONCENTRADO COBRE
     st.subheader("6. Concentrado Cobre")
     ley_cc_cu = 0.8739 * ley_cu + 25.3680
@@ -95,6 +111,14 @@ if menu == "Costo de Producción":
     rec_cu += 0.4
     rec_ag_cu = -12.8961 * ley_ag + 49.5286
     tms_cu = ((tonelaje * ley_cu) / 100) * ((rec_cu / 100) / (ley_cc_cu / 100)) if ley_cc_cu > 0 else 0
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Ley CC Cu (%)", f"{ley_cc_cu:.2f}")
+        st.metric("Recuperación Cu (%)", f"{rec_cu:.2f}")
+    with col2:
+        st.metric("Recuperación Ag en Cu (%)", f"{rec_ag_cu:.2f}")
+    with col3:
+        st.metric("TMS Cobre", f"{tms_cu:.2f}")
 
     # PARTE 7: TOTALES Y FINOS
     st.subheader("7. Totales y Finos")
